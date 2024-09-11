@@ -51,7 +51,7 @@ export default function Movie({ movie, episodes }) {
             </video>
           ) : embedSrc ? (
             <iframe
-              className="w-auto h-auto rounded-lg"
+              className="w-full h-auto rounded-lg"
               src={embedSrc}
               title="Movie"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
