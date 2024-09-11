@@ -5,7 +5,7 @@ import { useState } from "react";
 export default function Movie({ movie, episodes }) {
   const [movieSrc, setMovieSrc] = useState(null);
   const [embedSrc, setEmbedSrc] = useState(null);
-  const [currentEpisode, setCurrentEp] = useState(1);
+  const [currentEpisode, setCurrentEp] = useState(null);
 
   const handleEpisode = (data, i) => {
     setCurrentEp(i + 1);
@@ -67,7 +67,14 @@ export default function Movie({ movie, episodes }) {
         </div>
 
         <div className="flex-1">
-          <h1 className="text-3xl font-bold mb-1">{movie.name}</h1>
+          <h1 className="text-3xl font-bold mb-1 flex">
+            {movie.name}
+            {currentEpisode ? (
+              <p className="text-slate-300 text-lg m-1 ml-2">
+                tập {currentEpisode}
+              </p>
+            ) : null}
+          </h1>
           <p className="text-gray-500 text-sm mb-2">{movie.year}</p>
 
           <div className="flex space-x-2 mb-4">
@@ -122,14 +129,7 @@ export default function Movie({ movie, episodes }) {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {episode.server_data.map((data, i) => (
-                      <div
-                        key={i}
-                        className={
-                          "flex space-x-2" + currentEpisode === i + 1
-                            ? "border border-red-800"
-                            : null
-                        }
-                      >
+                      <div key={i} className="flex space-x-2">
                         <WatchButton
                           label={data.name}
                           onClick={() => {
