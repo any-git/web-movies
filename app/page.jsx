@@ -17,12 +17,12 @@ const Home = async ({ searchParams }) => {
     }
     const content = await res.json();
     const movies = q ? content.data.items : content.items;
-    const headText = q ? `Kết quả tìm kiếm cho "${q}"` : "Mới nhất";
+    const infoText = q ? `Kết quả tìm kiếm cho "${q}"` : "Mới nhất";
 
     return (
       <>
         <Nav />
-        <Container>
+        <Container infoText={infoText}>
           {movies.map((movie) => (
             <Card key={movie._id} movie={movie} />
           ))}
@@ -34,7 +34,7 @@ const Home = async ({ searchParams }) => {
     return (
       <>
         <Nav />
-        <Container headText={headText}>
+        <Container infoText={infoText}>
           <p>Error fetching data.</p>
         </Container>
       </>
