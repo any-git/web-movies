@@ -45,13 +45,13 @@ export default function Movie({ movie, episodes }) {
           {movieSrc ? (
             <video
               controls
-              className="absolute inset-0 w-full h-full rounded-lg"
+              className="absolute inset-0 w-full h-auto rounded-lg"
             >
               <source src={movieSrc} />
             </video>
           ) : embedSrc ? (
             <iframe
-              className="w-full h-full rounded-lg"
+              className="w-full h-auto rounded-lg"
               src={embedSrc}
               title="Movie"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
