@@ -63,13 +63,13 @@ export default function Movie({ movie, episodes }) {
 
           <div className="flex space-x-2 mb-4">
             <WatchButton
-              label="Xem phim"
+              label="Xem ngay"
               onClick={() =>
                 setEmbedSrc(episodes[0]?.server_data[index]?.link_embed)
               }
             />
             <WatchButton
-              label="Xem online"
+              label="M3U8"
               onClick={() =>
                 setMovieSrc(episodes[0]?.server_data[index]?.link_m3u8)
               }
