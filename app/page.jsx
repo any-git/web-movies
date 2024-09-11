@@ -17,6 +17,7 @@ const Home = async ({ searchParams }) => {
     }
     const content = await res.json();
     const movies = q ? content.data.items : content.items;
+    const headText = q ? `Kết quả tìm kiếm cho "${q}"` : "Mới nhất";
 
     return (
       <>
@@ -33,7 +34,7 @@ const Home = async ({ searchParams }) => {
     return (
       <>
         <Nav />
-        <Container>
+        <Container headText={headText}>
           <p>Error fetching data.</p>
         </Container>
       </>
