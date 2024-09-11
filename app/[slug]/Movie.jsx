@@ -51,17 +51,20 @@ export default function Movie({ movie, episodes }) {
             </video>
           ) : embedSrc ? (
             <iframe
+              className="w-full h-full rounded-lg"
               src={embedSrc}
               title="Movie"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           ) : (
-            <img
-              src={movie.poster_url}
-              alt={movie.name}
-              className="h-full w-auto object-cover rounded-lg shadow-lg"
-            />
+            <div className="w-full items-center justify-center">
+              <img
+                src={movie.poster_url}
+                alt={movie.name}
+                className="h-full w-auto object-cover rounded-lg shadow-lg"
+              />
+            </div>
           )}
         </div>
 
