@@ -7,7 +7,7 @@ export default function Nav() {
 
   return (
     <nav className="flex justify-between items-center h-16 bg-white text-black relative shadow-sm font-mono w-screen">
-      <div className="px-2 cursor-pointer font-bold">Web Movies</div>
+      <div className="px-2 cursor-pointer font-bold">Phim điện ảnh</div>
       <div className="px-2 py-2 border border-gray-300 rounded-md flex">
         <input
           type="text"
