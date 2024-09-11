@@ -5,7 +5,16 @@ import { useState } from "react";
 export default function Movie({ movie, episodes }) {
   const [movieSrc, setMovieSrc] = useState(null);
   const [embedSrc, setEmbedSrc] = useState(null);
-  const [index, setIndex] = useState(0);
+  const [currentEpisode, setCurrentEp] = useState(1);
+
+  const handleEpisode = (data, i) => {
+    setCurrentEp(i + 1);
+    if (movieSrc) {
+      setMovieSrc(data.link_m3u8);
+    } else {
+      setEmbedSrc(data.link_embed);
+    }
+  };
 
   const MovieInfo = ({ label, value, className = "" }) => (
     <div className={`text-sm ${className}`}>
@@ -65,13 +74,13 @@ export default function Movie({ movie, episodes }) {
             <WatchButton
               label="Xem ngay"
               onClick={() =>
-                setEmbedSrc(episodes[0]?.server_data[index]?.link_embed)
+                setEmbedSrc(episodes[0]?.server_data[0]?.link_embed)
               }
             />
             <WatchButton
               label="M3U8"
               onClick={() =>
-                setMovieSrc(episodes[0]?.server_data[index]?.link_m3u8)
+                setMovieSrc(episodes[0]?.server_data[0]?.link_m3u8)
               }
             />
           </div>
@@ -113,11 +122,18 @@ export default function Movie({ movie, episodes }) {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {episode.server_data.map((data, i) => (
-                      <div key={i} className="flex space-x-2">
+                      <div
+                        key={i}
+                        className={
+                          "flex space-x-2" + currentEpisode === i + 1
+                            ? "border border-red-800"
+                            : null
+                        }
+                      >
                         <WatchButton
                           label={data.name}
                           onClick={() => {
-                            setIndex(index);
+                            handleEpisode(data, i);
                           }}
                         />
                       </div>
