@@ -58,13 +58,11 @@ export default function Movie({ movie, episodes }) {
               allowFullScreen
             />
           ) : (
-            <div className="w-full items-center justify-center">
-              <img
-                src={movie.poster_url}
-                alt={movie.name}
-                className="h-full w-auto object-cover rounded-lg shadow-lg"
-              />
-            </div>
+            <img
+              src={movie.poster_url}
+              alt={movie.name}
+              className="h-full w-auto object-cover rounded-lg shadow-lg"
+            />
           )}
         </div>
 
