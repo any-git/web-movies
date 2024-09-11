@@ -34,34 +34,33 @@ export default function Movie({ movie, episodes }) {
   return (
     <div className="container mx-auto p-4">
       <div className="flex flex-col md:flex-row gap-6">
-        <div className="relative h-auto w-full">
-          <img
-            src={movie.poster_url}
-            alt={movie.name}
-            className="w-full h-full object-cover rounded-lg shadow-lg"
-          />
-          <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white p-2 text-xs rounded-full">
+        <div className="relative h-56 w-full">
+          <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white p-2 text-xs rounded-full z-50">
             <div className="flex items-center space-x-2">
               <span>{movie.quality}</span>
               <span>•</span>
               <span>{movie.lang}</span>
             </div>
           </div>
-          {movieSrc && (
+          {movieSrc ? (
             <video
               controls
               className="absolute inset-0 w-full h-full rounded-lg"
             >
               <source src={movieSrc} />
             </video>
-          )}
-          {embedSrc && (
+          ) : embedSrc ? (
             <iframe
               src={embedSrc}
               title="Movie"
-              className="absolute inset-0 w-full h-full rounded-lg"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+            />
+          ) : (
+            <img
+              src={movie.poster_url}
+              alt={movie.name}
+              className="h-full w-auto object-cover rounded-lg shadow-lg"
             />
           )}
         </div>
@@ -80,15 +79,17 @@ export default function Movie({ movie, episodes }) {
           <div className="flex space-x-2 mb-4">
             <WatchButton
               label="Xem ngay"
-              onClick={() =>
-                setEmbedSrc(episodes[0]?.server_data[0]?.link_embed)
-              }
+              onClick={() => {
+                setEmbedSrc(episodes[0]?.server_data[0]?.link_embed);
+                setMovieSrc(null);
+              }}
             />
             <WatchButton
               label="M3U8"
-              onClick={() =>
-                setMovieSrc(episodes[0]?.server_data[0]?.link_m3u8)
-              }
+              onClick={() => {
+                setMovieSrc(episodes[0]?.server_data[0]?.link_m3u8);
+                setEmbedSrc(null);
+              }}
             />
           </div>
 
