@@ -21,7 +21,7 @@ const Home = async ({ searchParams }) => {
 
     return (
       <>
-        <Nav />
+        <Nav currentPage="/" />
         <Container infoText={infoText}>
           {movies.map((movie) => (
             <Card key={movie._id} movie={movie} />

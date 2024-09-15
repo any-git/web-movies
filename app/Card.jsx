@@ -4,7 +4,7 @@ export default function Card({ movie }) {
     poster_url = "https://phimimg.com/" + poster_url;
   }
   return (
-    <a href={`/${movie.slug}`}>
+    <a href={`/watch/${movie.slug}`}>
       <div
         key={movie._id}
         className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg hover:cursor-pointer hover:bg-slate-100"
