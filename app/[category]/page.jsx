@@ -11,10 +11,11 @@ async function Category({ params }) {
   const content = await res.json();
   const movies = content.data.items;
   const infoText = `Danh sách phim ${category}`;
+  const currentPage = `/${category}`;
 
   return (
     <>
-      <Nav currentPage={"/" + category} />
+      <Nav currentPage={currentPage} />
       <Container infoText={infoText}>
         {movies.map((movie) => (
           <Card key={movie._id} movie={movie} />
