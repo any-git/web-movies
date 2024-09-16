@@ -9,7 +9,7 @@ async function Category({ params }) {
     throw new Error("Network response was not ok");
   }
   const data = await res.json();
-  const movies = data.items;
+  const movies = data.data.items;
   const infoText = `Danh sách phim ${category}`;
 
   return (
