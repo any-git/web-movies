@@ -52,8 +52,10 @@ export default function Nav({ currentPage }) {
                 <li key={category.name}>
                   <a
                     href={category.link}
-                    className={`block w-full text-dark font-sans overflow-hidden hover:underline hover:cursor-pointer hover:bg-slate-600 hover:text-white px-4 py-2 ${
-                      currentPage === category.link ? "underline" : ""
+                    className={`block w-full font-sans overflow-hidden hover:underline hover:cursor-pointer hover:bg-slate-600 hover:text-white px-4 py-2 ${
+                      currentPage === category.link
+                        ? "bg-slate-600 text-white"
+                        : "text-dark"
                     }`}
                   >
                     {category.name}
