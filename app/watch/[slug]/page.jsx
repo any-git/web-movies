@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
     return {
       title: movie.name,
       description: movie.content,
-      image: movie.thumb_url,
+      images: [movie.thumb_url],
     };
   }
 }
