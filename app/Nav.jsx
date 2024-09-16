@@ -7,7 +7,7 @@ export default function Nav({ currentPage }) {
   const categories = [
     { name: "Trang chủ", link: "/" },
     { name: "Chương trình truyền hình", link: "/phim-bo" },
-    { name: "Phim điện ảnh", link: "/phim-le" },
+    { name: "Phim chiếu rạp", link: "/phim-le" },
     { name: "Phim hoạt hình", link: "/phim-hoat-hinh" },
     { name: "TV Shows", link: "/tv-shows" },
   ];
