@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 
 export default function Nav({ currentPage }) {
@@ -9,7 +8,7 @@ export default function Nav({ currentPage }) {
     { name: "Trang chủ", link: "/" },
     { name: "Chương trình truyền hình", link: "/phim-bo" },
     { name: "Phim điện ảnh", link: "/phim-le" },
-    { name: "Phim hoạt hình", link: "/phim-hoat-hinh" },
+    { name: "Phim hoạt hình", link: "/phim-hoat-hinh" },
     { name: "TV Shows", link: "/tv-shows" },
   ];
 
@@ -39,33 +38,30 @@ export default function Nav({ currentPage }) {
           </a>
         </div>
       </nav>
-
       {openMenu && (
-        <div className="fixed flex h-screen left-0 right-1/2 bottom-0 bg-slate-300 opacity-50 z-10">
-          <button
-            onClick={() => setOpenMenu(false)}
-            className="fixed top-4 right-0 text-2xl font-bold"
-          >
-            <i className="material-icons">close</i>
-            <ul className="flex flex-col p-4 gap-4 justify-left">
+        <div className="fixed inset-0 bg-slate-300 bg-opacity-50 z-10">
+          <div className="fixed top-0 left-0 bottom-0 w-1/2 bg-white shadow-lg">
+            <button
+              onClick={() => setOpenMenu(false)}
+              className="absolute top-4 right-4 text-2xl font-bold"
+            >
+              <i className="material-icons">close</i>
+            </button>
+            <ul className="flex flex-col p-4 gap-4 mt-16">
               {categories.map((category) => (
                 <li key={category.name}>
                   <a
                     href={category.link}
-                    className={
-                      "w-full text-dark justify-left bg-slate-300 font-sans overflow-hidden hover:underline hover:cursor-pointer hover:bg-slate-600 hover:text-white px-4 py-2 " +
-                        currentPage ===
-                      category.link
-                        ? "underline"
-                        : ""
-                    }
+                    className={`block w-full text-dark font-sans overflow-hidden hover:underline hover:cursor-pointer hover:bg-slate-600 hover:text-white px-4 py-2 ${
+                      currentPage === category.link ? "underline" : ""
+                    }`}
                   >
                     {category.name}
                   </a>
                 </li>
               ))}
             </ul>
-          </button>
+          </div>
         </div>
       )}
     </>
