@@ -6,9 +6,9 @@ export default function Nav({ currentPage }) {
   const [openMenu, setOpenMenu] = useState(false);
   const categories = [
     { name: "Trang chủ", link: "/" },
-    { name: "Chương trình truyền hình", link: "/phim-bo" },
-    { name: "Phim chiếu rạp", link: "/phim-le" },
-    { name: "Phim hoạt hình", link: "/phim-hoat-hinh" },
+    { name: "Phim Chiếu Rạp", link: "/phim-le" },
+    { name: "Truyền Hình", link: "/phim-bo" },
+    { name: "Hoạt Hình", link: "/hoat-hinh" },
     { name: "TV Shows", link: "/tv-shows" },
   ];
 
