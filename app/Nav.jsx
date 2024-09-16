@@ -53,7 +53,7 @@ export default function Nav({ currentPage }) {
                   <a
                     href={category.link}
                     className={
-                      "text-dark justify-left bg-slate-300 font-sans overflow-hidden hover:underline hover:cursor-pointer hover:bg-slate-600 hover:text-white px-4 py-2 " +
+                      "w-full text-dark justify-left bg-slate-300 font-sans overflow-hidden hover:underline hover:cursor-pointer hover:bg-slate-600 hover:text-white px-4 py-2 " +
                         currentPage ===
                       category.link
                         ? "underline"
