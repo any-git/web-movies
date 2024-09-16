@@ -1,6 +1,19 @@
 import React from "react";
 import Movie from "./Movie";
 
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  const res = await fetch(`https://phimapi.com/phim/${slug}`);
+  if (res.ok) {
+    const data = await res.json();
+    const movie = data.movie;
+    return {
+      title: movie.name,
+      description: movie.content,
+    };
+  }
+}
+
 async function MovieDetail({ params }) {
   const { slug } = params;
   const res = await fetch(`https://phimapi.com/phim/${slug}`);
