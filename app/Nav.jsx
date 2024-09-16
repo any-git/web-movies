@@ -17,7 +17,7 @@ export default function Nav({ currentPage }) {
     <>
       <nav className="flex justify-between items-center h-16 bg-white text-black sticky top-0 shadow-sm font-mono w-screen">
         <div className="px-2 cursor-pointer">
-          <button className="text-2xl font-bold">
+          <button className="text-2xl font-bold" onClick={() => setOpenMenu(true)}>
             <i className="material-icons">menu</i>
           </button>
         </div>

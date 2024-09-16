@@ -1,6 +1,6 @@
-import Container from "@/app/Container";
-import Card from "@/app/Card";
-import Nav from "@/app/Nav";
+import Container from "../Container";
+import Card from "../Card";
+import Nav from "../Nav";
 
 async function Category({ params }) {
   const { category } = params;
@@ -23,3 +23,5 @@ async function Category({ params }) {
     </>
   );
 }
+
+export default Category;
