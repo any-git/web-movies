@@ -17,7 +17,10 @@ export default function Nav({ currentPage }) {
     <>
       <nav className="flex justify-between items-center h-16 bg-white text-black sticky top-0 shadow-sm font-mono w-screen">
         <div className="px-2 cursor-pointer">
-          <button className="text-2xl font-bold" onClick={() => setOpenMenu(true)}>
+          <button
+            className="text-2xl font-bold"
+            onClick={() => setOpenMenu(true)}
+          >
             <i className="material-icons">menu</i>
           </button>
         </div>
@@ -44,13 +47,14 @@ export default function Nav({ currentPage }) {
             className="fixed top-4 right-0 text-2xl font-bold"
           >
             <i className="material-icons">close</i>
-            <ul className="flex flex-col p-4">
+            <ul className="flex flex-col p-4 gap-4">
               {categories.map((category) => (
                 <li key={category.name}>
                   <a
                     href={category.link}
                     className={
-                      "text-2xl font-bold hover:underline" + currentPage ===
+                      "text-dark p-2 bg-slate-100 font-bold hover:underline hover:cursor-pointer hover:bg-slate-400 " +
+                        currentPage ===
                       category.link
                         ? "underline"
                         : ""
