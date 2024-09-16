@@ -4,6 +4,8 @@ import Nav from "../Nav";
 
 async function Category({ params }) {
   const { category } = params;
+  const infoText = `Danh sách phim ${category}`;
+  const currentPage = `/${category}`;
   try {
     const res = await fetch(`https://phimapi.com/api/danh-sach/${category}`);
     if (!res.ok) {
@@ -11,8 +13,6 @@ async function Category({ params }) {
     }
     const content = await res.json();
     const movies = content.data.items;
-    const infoText = `Danh sách phim ${category}`;
-    const currentPage = `/${category}`;
 
     return (
       <>
@@ -28,7 +28,7 @@ async function Category({ params }) {
     console.error("Error fetching data:", error);
     return (
       <>
-        <Nav />
+        <Nav currentPage={currentPage} />
         <Container infoText={infoText}>
           <p>Error fetching data.</p>
         </Container>
