@@ -47,7 +47,7 @@ export default function Nav({ currentPage }) {
             className="fixed top-4 right-0 text-2xl font-bold"
           >
             <i className="material-icons">close</i>
-            <ul className="flex flex-col p-4 gap-4">
+            <ul className="flex flex-col p-4 gap-4 justify-left">
               {categories.map((category) => (
                 <li key={category.name}>
                   <a
