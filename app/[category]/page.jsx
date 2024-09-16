@@ -8,8 +8,8 @@ async function Category({ params }) {
   if (!res.ok) {
     throw new Error("Network response was not ok");
   }
-  const data = await res.json();
-  const movies = data.data.items;
+  const content = await res.json();
+  const movies = content.data.items;
   const infoText = `Danh sách phim ${category}`;
 
   return (
