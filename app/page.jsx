@@ -1,6 +1,6 @@
-import Nav from "./Nav";
-import Container from "./Container";
-import Card from "./Card";
+import Nav from "@/components/Nav";
+import Container from "@/components/Container";
+import Card from "@/components/Card";
 
 const Home = async ({ searchParams }) => {
   const q = searchParams.q || "";

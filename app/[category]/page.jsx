@@ -1,6 +1,6 @@
-import Container from "../Container";
-import Card from "../Card";
-import Nav from "../Nav";
+import Container from "@/components/Container";
+import Card from "@/components/Card";
+import Nav from "@/components/Nav";
 
 export async function generateMetadata({ params }) {
   const { category } = params;

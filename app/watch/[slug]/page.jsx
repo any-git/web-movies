@@ -1,5 +1,6 @@
 import React from "react";
-import Movie from "./Movie";
+import Movie from "@/components/Movie";
+import Nav from "@/components/Nav";
 
 export async function generateMetadata({ params }) {
   const { slug } = params;
@@ -25,7 +26,12 @@ async function MovieDetail({ params }) {
   const movie = data.movie;
   const episodes = data.episodes;
 
-  return <Movie movie={movie} episodes={episodes} />;
+  return (
+    <>
+      <Nav currentPage={`/watch/${slug}`} />
+      <Movie movie={movie} episodes={episodes} />
+    </>
+  );
 }
 
 export default MovieDetail;
