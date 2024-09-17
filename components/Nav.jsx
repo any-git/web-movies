@@ -18,9 +18,13 @@ export default function Nav({ currentPage }) {
         <div className="px-2 cursor-pointer">
           <button
             className="text-2xl font-bold"
-            onClick={() => setOpenMenu(true)}
+            onClick={() => setOpenMenu(!openMenu)}
           >
-            <i className="material-icons">menu</i>
+            {!openMenu ? (
+              <i className="material-icons">menu</i>
+            ) : (
+              <i className="material-icons">close</i>
+            )}
           </button>
         </div>
         <div className="px-2 py-2 border border-gray-300 rounded-md flex">
@@ -41,12 +45,6 @@ export default function Nav({ currentPage }) {
       {openMenu && (
         <div className="fixed inset-0 bg-slate-300 bg-opacity-50 z-10">
           <div className="relative left-0 bottom-0 w-1/2 bg-white shadow-lg">
-            <button
-              onClick={() => setOpenMenu(false)}
-              className="absolute top-4 right-4 text-2xl font-bold"
-            >
-              <i className="material-icons">close</i>
-            </button>
             <ul className="relative flex flex-col m-2 p-4 gap-4 mt-16">
               {categories.map((category) => (
                 <li key={category.name}>
