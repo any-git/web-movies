@@ -47,7 +47,7 @@ export default function Nav({ currentPage }) {
             >
               <i className="material-icons">close</i>
             </button>
-            <ul className="relative flex flex-col p-4 gap-4 mt-16">
+            <ul className="relative flex flex-col m-2 p-4 gap-4 mt-16">
               {categories.map((category) => (
                 <li key={category.name}>
                   <a
