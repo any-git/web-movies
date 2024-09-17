@@ -35,7 +35,7 @@ export default function Movie({ movie, episodes }) {
     <div className="container mx-auto p-4">
       <div className="flex flex-col md:flex-row gap-6">
         <div className="relative h-1/3 w-full">
-          <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white p-2 text-xs rounded-full z-50">
+          <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white p-2 text-xs rounded-full z-40">
             <div className="flex items-center space-x-2">
               <span>{movie.quality}</span>
               <span>•</span>

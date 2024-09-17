@@ -14,7 +14,7 @@ export default function Nav({ currentPage }) {
 
   return (
     <>
-      <nav className="flex justify-between items-center h-16 bg-white text-black sticky top-0 shadow-sm font-mono w-screen">
+      <nav className="flex justify-between items-center h-16 bg-white text-black sticky top-0 shadow-sm font-mono w-screen z-50 sticky">
         <div className="px-2 cursor-pointer">
           <button
             className="text-2xl font-bold"
