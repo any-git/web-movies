@@ -15,10 +15,10 @@ const geistMono = localFont({
 
 export const metadata = {
   title: {
-    default: "Phim điện ảnh",
-    template: "%s | Phim điện ảnh",
+    default: "Phim Ảnh",
+    template: "%s | Phim Ảnh",
   },
-  description: "Trang web xem phim chiếu rạp và phim truyền hình",
+  description: "Website cung cấp phim chiếu rạp, chương trình truyền hình...",
 };
 
 export default function RootLayout({ children }) {
