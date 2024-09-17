@@ -40,7 +40,7 @@ export default function Nav({ currentPage }) {
       </nav>
       {openMenu && (
         <div className="fixed inset-0 bg-slate-300 bg-opacity-50 z-10">
-          <div className="fixed top-0 left-0 bottom-0 w-1/2 bg-white shadow-lg">
+          <div className="relative left-0 bottom-0 w-1/2 bg-white shadow-lg">
             <button
               onClick={() => setOpenMenu(false)}
               className="absolute top-4 right-4 text-2xl font-bold"
