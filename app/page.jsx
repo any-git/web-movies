@@ -6,10 +6,12 @@ import Container from "@/components/Container";
 import Card from "@/components/Card";
 import { motion } from "framer-motion";
 
+const API_URL = process.env.API_URL;
+
 async function getMovies(pageIndex = 1) {
   try {
     const req = await fetch(
-      `https://phim.nguonc.com/api/films/phim-moi-cap-nhat?page=${pageIndex}`
+      `${API_URL}/api/films/phim-moi-cap-nhat?page=${pageIndex}`
     );
     const data = await req.json();
     return {

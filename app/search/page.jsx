@@ -7,10 +7,12 @@ import Card from "@/components/Card";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 
+const API_URL = process.env.API_URL;
+
 async function getMovies(kw, pageIndex = 1) {
   try {
     const req = await fetch(
-      `https://phim.nguonc.com/api/films/search?keyword=${kw}&page=${pageIndex}`
+      `${API_URL}/api/films/search?keyword=${kw}&page=${pageIndex}`
     );
     const data = await req.json();
     return {

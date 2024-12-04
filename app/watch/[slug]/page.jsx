@@ -5,6 +5,7 @@ import Movie from "@/components/Movie";
 import Nav from "@/components/Nav";
 
 const movieCache = {};
+const API_URL = process.env.API_URL;
 
 function MovieDetail({ params }) {
   const { slug } = params;
@@ -24,7 +25,7 @@ function MovieDetail({ params }) {
           return;
         }
 
-        const res = await fetch(`https://phim.nguonc.com/api/film/${slug}`);
+        const res = await fetch(`${API_URL}/api/film/${slug}`);
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
