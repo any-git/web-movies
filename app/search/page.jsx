@@ -7,7 +7,7 @@ import Card from "@/components/Card";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 
-const API_URL = process.env.API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 async function getMovies(kw, pageIndex = 1) {
   try {
