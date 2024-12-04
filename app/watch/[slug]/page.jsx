@@ -5,7 +5,7 @@ import Movie from "@/components/Movie";
 import Nav from "@/components/Nav";
 
 const movieCache = {};
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "https://phim.nguonc.com";
 
 function MovieDetail({ params }) {
   const { slug } = params;
