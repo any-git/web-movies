@@ -1,6 +1,6 @@
 "use client";
 
-import Suspense, { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import Nav from "@/components/Nav";
 import Container from "@/components/Container";
 import Card from "@/components/Card";
