@@ -6,16 +6,13 @@ import { useState } from "react";
 export default function Card({ movie }) {
   const [isClicked, setIsClicked] = useState(false);
   let poster_url = movie.poster_url;
-  if (!poster_url.includes("https://phimimg.com/")) {
-    poster_url = "https://phimimg.com/" + poster_url;
-  }
 
   const handleClick = (e) => {
     e.preventDefault();
     setIsClicked(true);
     setTimeout(() => {
       window.location.href = `/watch/${movie.slug}`;
-    }, 300); // Delay chuyển hướng 300ms để hoàn thành animation
+    }, 300);
   };
 
   return (
@@ -28,7 +25,7 @@ export default function Card({ movie }) {
       <a href={`/watch/${movie.slug}`} onClick={handleClick}>
         <motion.div
           key={movie._id}
-          className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg hover:cursor-pointer hover:bg-slate-100"
+          className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-gray-700"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -42,7 +39,7 @@ export default function Card({ movie }) {
           />
           <motion.div className="mt-4">
             <motion.h2
-              className="text-lg font-semibold"
+              className="text-lg font-semibold text-black dark:text-white"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -50,12 +47,12 @@ export default function Card({ movie }) {
               {movie.name}
             </motion.h2>
             <motion.p
-              className="text-gray-600"
+              className="text-gray-600 dark:text-gray-300"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
             >
-              {movie.year}
+              {movie.original_name}
             </motion.p>
           </motion.div>
         </motion.div>

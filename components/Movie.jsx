@@ -1,240 +1,213 @@
 "use client";
 
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState, useMemo } from "react";
+import {
+  PlayCircleIcon,
+  InformationCircleIcon,
+  ServerIcon,
+} from "@heroicons/react/24/solid";
 
-export default function Movie({ movie, episodes }) {
-  const [movieSrc, setMovieSrc] = useState(null);
-  const [embedSrc, setEmbedSrc] = useState(null);
-  const [currentEpisode, setCurrentEp] = useState(null);
+export default function Movie({ movie }) {
+  const [currentMedia, setCurrentMedia] = useState({
+    src: null,
+    type: null,
+    episode: null,
+    server: null,
+  });
 
-  const handleEpisode = (data, i) => {
-    setCurrentEp(i + 1);
-    if (movieSrc) {
-      setMovieSrc(data.link_m3u8);
-    } else {
-      setEmbedSrc(data.link_embed);
-    }
-  };
-
-  const MovieInfo = ({ label, value, className = "" }) => (
-    <motion.div
-      className={`text-sm ${className}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <span className="font-semibold">{label}:</span> {value}
-    </motion.div>
+  // Memoized server and episode selection
+  const serverOptions = useMemo(
+    () => movie.episodes.map((server) => server.server_name),
+    [movie.episodes]
   );
 
-  const WatchButton = ({ label, onClick }) => (
+  // Xử lý chọn tập phim
+  const handleEpisodeSelect = (episode, server) => {
+    setCurrentMedia({
+      src: episode.m3u8 || episode.embed,
+      type: episode.m3u8 ? "video" : "embed",
+      episode: episode.name,
+      server: server.server_name,
+    });
+  };
+
+  // Component hiển thị thông tin phim
+  const MovieInfoItem = ({ label, value, className = "" }) => {
+    if (!value) return null;
+    return (
+      <div className={`text-sm text-gray-700 dark:text-gray-300 ${className}`}>
+        <span className="font-semibold text-gray-900 dark:text-white">
+          {label}:{" "}
+        </span>
+        {value}
+      </div>
+    );
+  };
+
+  // Nút tương tác
+  const InteractiveButton = ({
+    icon: Icon,
+    label,
+    onClick,
+    className = "",
+  }) => (
     <motion.button
-      className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors text-sm"
-      onClick={onClick}
+      className={`
+        flex items-center gap-2 px-4 py-2 rounded-lg 
+        bg-blue-500 text-white hover:bg-blue-600 
+        transition-all duration-300 ${className}
+      `}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
+      onClick={onClick}
     >
+      {Icon && <Icon className="w-5 h-5" />}
       {label}
     </motion.button>
   );
 
   return (
-    <motion.div
-      className="container mx-auto p-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="flex flex-col md:flex-row gap-6">
-        <motion.div
-          className="relative h-1/3 w-full"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+    <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Poster & Media Section */}
+        <div className="md:col-span-1">
           <motion.div
-            className="absolute top-2 right-2 bg-black bg-opacity-70 text-white p-2 text-xs rounded-full z-40"
-            initial={{ opacity: 0, y: -20 }}
+            className="sticky top-8 space-y-4"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
           >
-            <div className="flex items-center space-x-2">
-              <span>{movie.quality}</span>
-              <span>•</span>
-              <span>{movie.lang}</span>
+            <AnimatePresence mode="wait">
+              {currentMedia.src ? (
+                currentMedia.type === "video" ? (
+                  <motion.video
+                    key="video"
+                    controls
+                    className="w-full rounded-xl shadow-lg"
+                    src={currentMedia.src}
+                  />
+                ) : (
+                  <motion.iframe
+                    key="iframe"
+                    className="w-full aspect-video rounded-xl"
+                    src={currentMedia.src}
+                    allowFullScreen
+                  />
+                )
+              ) : (
+                <motion.img
+                  key="poster"
+                  src={movie.poster_url}
+                  alt={movie.name}
+                  className="w-full rounded-xl shadow-lg object-cover"
+                />
+              )}
+            </AnimatePresence>
+
+            {/* Thông tin nhanh */}
+            <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                    {movie.quality}
+                  </span>
+                  <span className="text-sm font-medium bg-green-100 text-green-800 px-2 py-1 rounded">
+                    {movie.language}
+                  </span>
+                </div>
+                <span className="text-sm text-gray-500">
+                  {movie.category[3]?.list[0]?.name}
+                </span>
+              </div>
             </div>
           </motion.div>
-          <AnimatePresence mode="wait">
-            {movieSrc ? (
-              <motion.video
-                key="video"
-                controls
-                className="relative insert-0 w-full h-auto rounded-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <source src={movieSrc} />
-              </motion.video>
-            ) : embedSrc ? (
-              <motion.iframe
-                key="iframe"
-                className="relative insert-0 w-full h-auto rounded-lg"
-                src={embedSrc}
-                title="Movie"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              />
-            ) : (
-              <motion.img
-                key="poster"
-                src={movie.poster_url}
-                alt={movie.name}
-                className="h-full w-auto object-cover rounded-lg shadow-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              />
+        </div>
+
+        {/* Thông tin phim */}
+        <div className="md:col-span-2 space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              {movie.name}
+            </h1>
+            {currentMedia.episode && (
+              <p className="text-gray-600 dark:text-gray-300">
+                Đang xem: Tập {currentMedia.episode}
+                {currentMedia.server && ` - ${currentMedia.server}`}
+              </p>
             )}
-          </AnimatePresence>
-        </motion.div>
+          </div>
 
-        <motion.div
-          className="flex-1"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <motion.h1
-            className="text-3xl font-bold mb-1 flex"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {movie.name}
-            {currentEpisode ? (
-              <motion.p
-                className="text-slate-300 text-lg m-1 ml-2"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-              >
-                tập {currentEpisode}
-              </motion.p>
-            ) : null}
-          </motion.h1>
-          <motion.p
-            className="text-gray-500 text-sm mb-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            {movie.year}
-          </motion.p>
-
-          <div className="flex space-x-2 mb-4">
-            <WatchButton
+          {/* Nút điều khiển */}
+          <div className="flex gap-4">
+            <InteractiveButton
+              icon={PlayCircleIcon}
               label="Xem ngay"
               onClick={() => {
-                setEmbedSrc(episodes[0]?.server_data[0]?.link_embed);
-                setMovieSrc(null);
+                const firstEpisode = movie.episodes[0]?.items[0];
+                handleEpisodeSelect(firstEpisode, movie.episodes[0]);
               }}
             />
-            <WatchButton
-              label="M3U8"
-              onClick={() => {
-                setMovieSrc(episodes[0]?.server_data[0]?.link_m3u8);
-                setEmbedSrc(null);
-              }}
+            <InteractiveButton
+              icon={InformationCircleIcon}
+              label="Chi tiết"
+              className="bg-gray-200 text-gray-800 hover:bg-gray-300"
             />
           </div>
 
-          <motion.p
-            className="mb-4 text-sm text-gray-600"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            {movie.content}
-          </motion.p>
+          {/* Mô tả */}
+          <p className="text-gray-600 dark:text-gray-300">
+            {movie.description}
+          </p>
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-6 text-gray-600">
-            <MovieInfo label="Thời gian" value={movie.time} />
-            <MovieInfo label="Tình trạng" value={movie.status} />
-            <MovieInfo
-              label="Diễn viên"
-              value={movie.actor.join(", ")}
-              className="col-span-2"
-            />
-            <MovieInfo
-              label="Đạo diễn"
-              value={movie.director.join(", ")}
-              className="col-span-2"
-            />
-            <MovieInfo
-              label="Thể loại"
-              value={movie.category.map((cat) => cat.name).join(", ")}
-              className="col-span-2"
-            />
-            <MovieInfo
+          {/* Thông tin chi tiết */}
+          <div className="grid md:grid-cols-2 gap-4">
+            <MovieInfoItem label="Tên gốc" value={movie.original_name} />
+            <MovieInfoItem
               label="Quốc gia"
-              value={movie.country.map((c) => c.name).join(", ")}
-              className="col-span-2"
+              value={movie.category[4]?.list[0]?.name}
+            />
+            <MovieInfoItem
+              label="Thể loại"
+              value={movie.category[2]?.list?.map((cat) => cat.name).join(", ")}
             />
           </div>
 
-          {episodes.length > 0 && episodes[0].server_data.length > 1 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-            >
-              <h2 className="text-xl font-semibold mb-3">Danh sách tập</h2>
-              {episodes.map((episode, index) => (
-                <motion.div
-                  key={index}
-                  className="mb-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
-                >
-                  <h3 className="font-medium text-base mb-2">
-                    {episode.server_name}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {episode.server_data.map((data, i) => (
-                      <motion.div
-                        key={i}
-                        className="flex space-x-2"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{
-                          delay: 0.5 + index * 0.1 + i * 0.05,
-                          duration: 0.3,
-                        }}
-                      >
-                        <WatchButton
-                          label={data.name}
-                          onClick={() => {
-                            handleEpisode(data, i);
-                          }}
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-        </motion.div>
+          {/* Danh sách tập */}
+          <div>
+            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+              Danh sách tập
+            </h2>
+            {movie.episodes.map((server, serverIndex) => (
+              <div key={serverIndex} className="mb-6">
+                <h3 className="text-lg font-medium mb-2 flex items-center gap-2">
+                  <ServerIcon className="w-5 h-5 text-blue-500" />
+                  {server.server_name}
+                </h3>
+                <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+                  {server.items.map((episode, episodeIndex) => (
+                    <motion.button
+                      key={episodeIndex}
+                      className={`
+                        px-3 py-1 rounded-md text-sm transition-all
+                        ${
+                          currentMedia.episode === episode.name
+                            ? "bg-blue-500 text-white"
+                            : "bg-gray-200 dark:bg-gray-700 hover:bg-blue-100"
+                        }
+                      `}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleEpisodeSelect(episode, server)}
+                    >
+                      Tập {episode.name}
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

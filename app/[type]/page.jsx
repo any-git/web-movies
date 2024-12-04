@@ -6,10 +6,10 @@ import Container from "@/components/Container";
 import Card from "@/components/Card";
 import { motion } from "framer-motion";
 
-async function getMovies(pageIndex = 1) {
+async function getMovies(types, pageIndex = 1) {
   try {
     const req = await fetch(
-      `https://phim.nguonc.com/api/films/phim-moi-cap-nhat?page=${pageIndex}`
+      `https://phim.nguonc.com/api/films/danh-sach/${types}?page=${pageIndex}`
     );
     const data = await req.json();
     return {
@@ -23,7 +23,8 @@ async function getMovies(pageIndex = 1) {
   }
 }
 
-export default function Home() {
+export default function Types({ params }) {
+  const { type } = params;
   const [pageIndex, setPageIndex] = useState(1);
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,7 @@ export default function Home() {
 
     setIsLoading(true);
     try {
-      const data = await getMovies(pageIndex);
+      const data = await getMovies(type, pageIndex);
 
       if (data.movies.length > 0) {
         setMovies((prevMovies) => [...prevMovies, ...data.movies]);

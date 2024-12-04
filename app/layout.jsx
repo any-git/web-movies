@@ -18,9 +18,8 @@ export const metadata = {
     default: "Phim Ảnh",
     template: "%s | Phim Ảnh",
   },
-  description: "Website cung cấp phim chiếu rạp, chương trình truyền hình...",
+  description: "Website phim ảnh",
 };
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

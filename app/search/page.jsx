@@ -5,11 +5,12 @@ import Nav from "@/components/Nav";
 import Container from "@/components/Container";
 import Card from "@/components/Card";
 import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 
-async function getMovies(pageIndex = 1) {
+async function getMovies(kw, pageIndex = 1) {
   try {
     const req = await fetch(
-      `https://phim.nguonc.com/api/films/phim-moi-cap-nhat?page=${pageIndex}`
+      `https://phim.nguonc.com/api/films/search?keyword=${kw}&page=${pageIndex}`
     );
     const data = await req.json();
     return {
@@ -23,7 +24,9 @@ async function getMovies(pageIndex = 1) {
   }
 }
 
-export default function Home() {
+export default function Types() {
+  const searchParams = useSearchParams();
+  const kw = searchParams.get("kw");
   const [pageIndex, setPageIndex] = useState(1);
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +36,7 @@ export default function Home() {
 
     setIsLoading(true);
     try {
-      const data = await getMovies(pageIndex);
+      const data = await getMovies(kw, pageIndex);
 
       if (data.movies.length > 0) {
         setMovies((prevMovies) => [...prevMovies, ...data.movies]);
