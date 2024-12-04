@@ -25,8 +25,8 @@ export default function Movie({ movie }) {
   // Xử lý chọn tập phim
   const handleEpisodeSelect = (episode, server) => {
     setCurrentMedia({
-      src: episode.m3u8 || episode.embed,
-      type: episode.m3u8 ? "video" : "embed",
+      src: episode.embed,
+      type: "embed",
       episode: episode.name,
       server: server.server_name,
     });
