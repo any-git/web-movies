@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import Suspense, { useState, useEffect } from "react";
 import Nav from "@/components/Nav";
 import Container from "@/components/Container";
 import Card from "@/components/Card";
@@ -26,7 +26,15 @@ async function getMovies(kw, pageIndex = 1) {
   }
 }
 
-export default function Types() {
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchContent />
+    </Suspense>
+  );
+}
+
+function SearchContent() {
   const searchParams = useSearchParams();
   const kw = searchParams.get("kw");
   const [pageIndex, setPageIndex] = useState(1);
