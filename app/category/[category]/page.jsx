@@ -39,7 +39,13 @@ export default function Types({ params }) {
       const data = await getMovies(category, pageIndex);
 
       if (data.movies.length > 0) {
-        setMovies((prevMovies) => [...prevMovies, ...data.movies]);
+        setMovies((prevMovies) => {
+          const movieSlugs = new Set(prevMovies.map((movie) => movie.slug));
+          const uniqueNewMovies = data.movies.filter(
+            (movie) => !movieSlugs.has(movie.slug)
+          );
+          return [...prevMovies, ...uniqueNewMovies];
+        });
         setPageIndex((prev) => prev + 1);
       }
     } catch (error) {

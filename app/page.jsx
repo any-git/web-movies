@@ -36,9 +36,14 @@ export default function Home() {
     setIsLoading(true);
     try {
       const data = await getMovies(pageIndex);
-
       if (data.movies.length > 0) {
-        setMovies((prevMovies) => [...prevMovies, ...data.movies]);
+        setMovies((prevMovies) => {
+          const movieSlugs = new Set(prevMovies.map((movie) => movie.slug));
+          const uniqueNewMovies = data.movies.filter(
+            (movie) => !movieSlugs.has(movie.slug)
+          );
+          return [...prevMovies, ...uniqueNewMovies];
+        });
         setPageIndex((prev) => prev + 1);
       }
     } catch (error) {
@@ -50,7 +55,6 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Kiểm tra nếu đã cuộn gần đến cuối trang
       if (
         window.innerHeight + document.documentElement.scrollTop + 100 >=
         document.documentElement.offsetHeight
