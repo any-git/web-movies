@@ -9,7 +9,7 @@ export default function Nav({ currentPage }) {
 
   const types = [
     { name: "Trang chủ", link: "/" },
-    { name: "Đang chiếu", link: "/dang-chieu" },
+    { name: "Đang chiếu", link: "/phim-dang-chieu" },
     { name: "Phim Chiếu Rạp", link: "/phim-le" },
     { name: "Truyền Hình", link: "/phim-bo" },
     { name: "TV Shows", link: "/tv-shows" },
