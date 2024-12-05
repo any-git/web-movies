@@ -41,7 +41,7 @@ export default function Card({ movie }) {
             <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-4 text-white">
               <div className="flex justify-between items-end mb-2">
                 <div className="flex flex-col">
-                  <motion.h2 
+                  <motion.h2
                     className="text-lg font-bold line-clamp-2"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -49,7 +49,7 @@ export default function Card({ movie }) {
                   >
                     {movie.name}
                   </motion.h2>
-                  <motion.p 
+                  <motion.p
                     className="text-sm opacity-80 line-clamp-1"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -64,11 +64,18 @@ export default function Card({ movie }) {
                       {movie.quality}
                     </span>
                   )}
-                  {movie.current_episode && movie.total_episodes && (
-                    <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
-                      {movie.current_episode} / {movie.total_episodes}
-                    </span>
-                  )}
+                  <div className="flex items-center">
+                    {movie.current_episode && (
+                      <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-l">
+                        {movie.current_episode}
+                      </span>
+                    )}
+                    {movie.total_episodes && (
+                      <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded-r">
+                        Tổng {movie.total_episodes}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
