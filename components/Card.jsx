@@ -72,7 +72,7 @@ export default function Card({ movie }) {
                     )}
                     {movie.total_episodes && (
                       <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded-r">
-                        Tổng {movie.total_episodes}
+                        {movie.total_episodes}
                       </span>
                     )}
                   </div>
