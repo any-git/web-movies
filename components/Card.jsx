@@ -66,7 +66,7 @@ export default function Card({ movie }) {
                   )}
                   {movie.current_episode && movie.total_episodes && (
                     <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
-                      {movie.current_episode}/{movie.total_episodes}
+                      {movie.current_episode} / {movie.total_episodes}
                     </span>
                   )}
                 </div>
