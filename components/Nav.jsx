@@ -1,11 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Nav({ currentPage }) {
   const [searchContent, setSearch] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
+  const [accessCount, setCount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/ping");
+        const data = await response.json();
+        setCount(data.count);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 60000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const types = [
     { name: "Trang chủ", link: "/" },
@@ -117,7 +137,7 @@ export default function Nav({ currentPage }) {
         </motion.div>
 
         <motion.div
-          className="w-full max-w-md px-2 py-2 border border-gray-300 rounded-md flex items-center dark:border-gray-700"
+          className="w-full max-w-1/2 px-2 py-2 border border-gray-300 rounded-md flex items-center dark:border-gray-700"
           whileHover={{ scale: 1.05 }}
         >
           <input
@@ -125,7 +145,7 @@ export default function Nav({ currentPage }) {
             className="flex-grow px-2 py-1 border-none focus:outline-none dark:bg-gray-800 dark:text-white"
             value={searchContent}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Tìm kiếm..."
+            placeholder="Nhập tên phim"
             onKeyDown={(e) => {
               if (e.key === "Enter" && searchContent.trim()) {
                 window.location.href = `/search?kw=${encodeURIComponent(
@@ -134,6 +154,16 @@ export default function Nav({ currentPage }) {
               }
             }}
           />
+        </motion.div>
+
+        {/* Hiển thị Access Count với biểu tượng con mắt */}
+        <motion.div className="flex items-center px-4 cursor-pointer text-lg">
+          <motion.i className="material-icons text-gray-700 dark:text-white">
+            visibility
+          </motion.i>
+          <motion.span className="ml-2 text-gray-700 dark:text-white">
+            {accessCount}
+          </motion.span>
         </motion.div>
       </motion.nav>
 
