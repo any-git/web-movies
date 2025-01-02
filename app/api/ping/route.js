@@ -5,11 +5,20 @@ const prisma = new PrismaClient();
 
 export async function GET(request) {
   try {
+    const url = new URL(request.url);
+    const id = url.searchParams.get("id");
     const ip = request.headers.get("x-real-ip");
 
-    await prisma.accessCount.create({
-      data: {
-        ip: ip || "unknown",
+    await prisma.accessCount.upsert({
+      where: {
+        id,
+      },
+      update: {
+        ip,
+      },
+      create: {
+        id,
+        ip,
       },
     });
 

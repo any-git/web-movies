@@ -11,12 +11,35 @@ export default function Nav({ currentPage }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/ping");
+        let randomId = getCookie("randomId");
+
+        if (!randomId) {
+          randomId = Math.floor(Math.random() * 2147483647);
+          document.cookie = `randomId=${randomId}; path=/; max-age=${
+            60 * 60 * 24
+          };`;
+        }
+
+        const url = `/api/ping?id=${randomId}`;
+
+        const response = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+        });
+
         const data = await response.json();
+
         setCount(data.count);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
+    };
+
+    const getCookie = (name) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+      return null;
     };
 
     fetchData();
