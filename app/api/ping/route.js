@@ -18,13 +18,6 @@ export async function GET(request) {
 
     const ip = request.headers.get("x-real-ip") || "unknown";
 
-    // Upsert bản ghi với id
-    await prisma.accessCount.upsert({
-      where: { id },
-      update: { ip },
-      create: { id, ip },
-    });
-
     const thirtySecondsAgo = new Date(Date.now() - 30 * 1000);
 
     // Xóa các bản ghi cũ
@@ -33,6 +26,16 @@ export async function GET(request) {
         timestamp: { lt: thirtySecondsAgo },
       },
     });
+
+    const record = await prisma.accessCount.findUnique({
+      where: { id },
+    });
+
+    if (!record) {
+      await prisma.accessCount.create({
+        data: { id, ip },
+      });
+    }
 
     // Đếm số bản ghi còn lại
     const count = await prisma.accessCount.count();
