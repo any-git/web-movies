@@ -145,7 +145,7 @@ export default function Nav({ currentPage }) {
         animate="visible"
         variants={navVariants}
       >
-        <motion.div className="px-2 cursor-pointer absolute left-4">
+        <motion.div className="absolute px-2 cursor-pointer left-4">
           <motion.button
             className="text-2xl font-bold"
             onClick={() => setOpenMenu(!openMenu)}
@@ -158,9 +158,18 @@ export default function Nav({ currentPage }) {
             )}
           </motion.button>
         </motion.div>
+        {/* Hiển thị Access Count với biểu tượng con mắt */}
+        <motion.div className="flex items-center px-4 py-4 cursor-pointer text-lg">
+          <motion.i className="material-icons text-gray-700 dark:text-white">
+            visibility
+          </motion.i>
+          <motion.span className="ml-2 text-gray-700 dark:text-white">
+            {accessCount}
+          </motion.span>
+        </motion.div>
 
         <motion.div
-          className="w-full max-w-1/2 px-2 py-2 border border-gray-300 rounded-md flex items-center dark:border-gray-700"
+          className="relative max-w-3/4 px-2 py-2 border border-gray-300 rounded-md flex items-center dark:border-gray-700"
           whileHover={{ scale: 1.05 }}
         >
           <input
@@ -177,16 +186,6 @@ export default function Nav({ currentPage }) {
               }
             }}
           />
-        </motion.div>
-
-        {/* Hiển thị Access Count với biểu tượng con mắt */}
-        <motion.div className="flex items-center px-4 cursor-pointer text-lg">
-          <motion.i className="material-icons text-gray-700 dark:text-white">
-            visibility
-          </motion.i>
-          <motion.span className="ml-2 text-gray-700 dark:text-white">
-            {accessCount}
-          </motion.span>
         </motion.div>
       </motion.nav>
 
