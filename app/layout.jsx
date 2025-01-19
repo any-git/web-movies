@@ -25,6 +25,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="vi">
       <head>
+        <meta
+          name="google-site-verification"
+          content="stTNpzhUhDWsmItkRQOlRO228yBU2r5AgC1xV1CkMjI"
+        />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
