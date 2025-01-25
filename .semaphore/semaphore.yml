@@ -5,10 +5,15 @@ agent:
     type: f1-standard-2
     os_image: ubuntu2204
 blocks:
-  - name: 'Block #1'
+  - name: Build
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Copy
           commands:
-            - cd /workspace
+            - cp . .
+        - name: Build
+          commands:
             - npm run build
+        - name: Export Artifacts
+          commands:
+            - artifact push next.js ./.next
