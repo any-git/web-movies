@@ -10,7 +10,7 @@ blocks:
       jobs:
         - name: Copy
           commands:
-            - cp -r . .
+            - checkout
         - name: Build
           commands:
             - npm run build
