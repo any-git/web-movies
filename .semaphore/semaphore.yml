@@ -8,12 +8,8 @@ blocks:
   - name: Build
     task:
       jobs:
-        - name: Copy
-          commands:
-            - checkout
         - name: Build
           commands:
+            - checkout
             - npm run build
-        - name: Export Artifacts
-          commands:
             - artifact push next.js ./.next
