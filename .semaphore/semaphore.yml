@@ -11,5 +11,6 @@ blocks:
         - name: Build
           commands:
             - checkout
+            - npm install
             - npm run build
             - artifact push next.js ./.next
