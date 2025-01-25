@@ -13,4 +13,5 @@ blocks:
             - checkout
             - npm install
             - npm run build
-            - artifact push project $(pwd)/.next
+            - zip -r next.zip .next
+            - artifact push project $(pwd)/next.zip
